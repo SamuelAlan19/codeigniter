@@ -101,4 +101,16 @@ class Main extends Controller
         echo $r->setData($dados)->render('pagina5'); 
     }
 
+    public function teste8(){
+
+        $p = \Config\Services::parser();
+        $p->setData([
+            'frase' => 'Frase realizada pelo parser.',
+            'titulo'=> 'Título colocado pelo parser.'
+        ]); 
+
+        echo $p->render('pagina6'); 
+
+    }
+
 }
