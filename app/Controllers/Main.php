@@ -90,5 +90,15 @@ class Main extends Controller
         echo view('pagina4'); 
     }
 
+    public function teste7(){
+        
+        $dados = [
+            'nome' => 'Samuel',
+            'sobrenome' => 'Alan'
+        ];
+
+        $r = \Config\Services::renderer();
+        echo $r->setData($dados)->render('pagina5'); 
+    }
 
 }
