@@ -14,6 +14,8 @@ use App\Libraries\Biblioteca\Livros;
 class Main extends Controller
 {
 
+        // Helpers 
+
     protected $helpers = array('matematica'); 
 
     public function index(){
@@ -29,10 +31,13 @@ class Main extends Controller
         return strlen($word); 
     }
 
+        // URL
+
     public function teste1(){
         echo 'teste'; 
     }
 
+        // metodos 
 
     public function teste2(){
         echo adicionar(10, 30);
@@ -44,6 +49,8 @@ class Main extends Controller
         echo dividir(10,30); 
     }
 
+        // Libraries e metodo
+
     public function teste3(){
         $v = new Livros(); 
 
@@ -52,6 +59,8 @@ class Main extends Controller
         
         echo $v->informacao(); 
     }
+
+        // Foreach, if clause e laço for
 
     public function teste4(){
         $marcas = [
@@ -64,6 +73,7 @@ class Main extends Controller
         echo view('pagina2', ['marcas' => $marcas]); 
     }
 
+        // Referências views e libraries 
 
     public function teste5(){
 
@@ -85,10 +95,14 @@ class Main extends Controller
         echo view('pagina', ['clientes' => $clientes] );
     }
 
+        // Secctions 
+
     public function teste6(){
 
         echo view('pagina4'); 
     }
+
+        // View Renderer  
 
     public function teste7(){
         
@@ -100,6 +114,8 @@ class Main extends Controller
         $r = \Config\Services::renderer();
         echo $r->setData($dados)->render('pagina5'); 
     }
+
+        // View Parser 
 
     public function teste8(){
 
