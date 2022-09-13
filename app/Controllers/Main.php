@@ -3,7 +3,13 @@
 namespace App\Controllers;
 
 use CodeIgniter\HTTP\Request;
+
 use CodeIgniter\Controller;
+
+use App\Libraries\Biblioteca\Livros;
+
+
+
 
 class Main extends Controller
 {
@@ -18,14 +24,15 @@ class Main extends Controller
         echo $this->wordCount("Samuel Alan");
         
     }
-               
+       
+    private function wordCount($word){
+        return strlen($word); 
+    }
+
     public function teste1(){
         echo 'teste'; 
     }
 
-    private function wordCount($word){
-        return strlen($word); 
-    }
 
     public function teste2(){
         echo adicionar(10, 30);
@@ -35,5 +42,14 @@ class Main extends Controller
         echo multiplicar(10, 30);
         echo '</br>';
         echo dividir(10,30); 
+    }
+
+    public function teste3(){
+        $v = new Livros(); 
+
+        $v->produto = "Mangá";
+        $v->preco = 10; 
+        
+        echo $v->informacao(); 
     }
 }
