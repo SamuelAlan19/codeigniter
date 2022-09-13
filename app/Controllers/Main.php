@@ -85,6 +85,10 @@ class Main extends Controller
         echo view('pagina', ['clientes' => $clientes] );
     }
 
+    public function teste6(){
+
+        echo view('pagina4'); 
+    }
 
 
 }
