@@ -52,4 +52,39 @@ class Main extends Controller
         
         echo $v->informacao(); 
     }
+
+    public function teste4(){
+        $marcas = [
+            'Audi',
+            'Ferrari',
+            'Maclaren',
+            'Mercedes'
+        ];
+
+        echo view('pagina2', ['marcas' => $marcas]); 
+    }
+
+
+    public function teste5(){
+
+        $clientes = [
+        [
+            'nome' => "João Barbosa de Lima",
+            'email' => "joaolima@sescmg.com.br"
+        ],
+        [
+            'nome' => "Felipe Melo Brito",
+            'email' => "felipebrito@sescmg.com.br"
+        ],
+        [
+            'nome' => "Helena de Souza Castilho",
+            'email' => "helenacastilho@sescmg.com.br"
+        ]
+        ]; 
+
+        echo view('pagina', ['clientes' => $clientes] );
+    }
+
+
+
 }
