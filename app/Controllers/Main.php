@@ -8,6 +8,8 @@ use CodeIgniter\Controller;
 class Main extends Controller
 {
 
+    protected $helpers = array('matematica'); 
+
     public function index(){
 
         $variavel['nome'] = "Samuel"; 
@@ -25,4 +27,13 @@ class Main extends Controller
         return strlen($word); 
     }
 
+    public function teste2(){
+        echo adicionar(10, 30);
+        echo '</br>';
+        echo subtrair(10,30); 
+        echo '</br>';
+        echo multiplicar(10, 30);
+        echo '</br>';
+        echo dividir(10,30); 
+    }
 }
