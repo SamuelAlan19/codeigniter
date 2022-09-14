@@ -193,7 +193,18 @@ class Main extends Controller
         echo view('servicos'); 
     }
 
+    public function teste12_2(){
+        $a = true; 
 
+        if($a){
+            return redirect()->to('public/main/teste12_3');
+        }
 
+        echo view('teste12');
+    }
+
+    public function teste12_3(){
+        echo 'O texto foi redirecionado com sucesso!';
+    }
 
 }
