@@ -174,7 +174,7 @@ class Main extends Controller
 
     }
 
-        // Acrescentando Assets
+        // Imagem com Assets
 
     public function teste11(){
 
@@ -182,7 +182,16 @@ class Main extends Controller
 
     }
 
+            // Trabalhando com links 
 
+    public function teste12(){
+        echo view('home');
+
+    }
+
+    public function teste12_1(){
+        echo view('servicos'); 
+    }
 
 
 
