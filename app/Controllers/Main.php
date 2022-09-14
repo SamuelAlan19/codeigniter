@@ -207,4 +207,56 @@ class Main extends Controller
         echo 'O texto foi redirecionado com sucesso!';
     }
 
+
+        // Manipulação de Sessions
+
+    public function teste13(){
+
+            $dados = [
+                'nome' => 'Samuel',
+                'sobrenome' => 'Alan', 
+                'idade' => '20', 
+                'email' => 'samuelsantos@gmail.com'
+            ]; 
+
+            session()->set($dados);
+
+            echo session()->get('nome'); 
+
+            echo '<pre>';
+            print_r(session()->get()); 
+
+            if(session()->has('faculdade')){
+                echo 'Sim!';
+            } else {
+                echo 'Não!';
+            }
+    }
+
+        // Sessions e Views 
+
+        public function teste14(){
+            session()->set([
+                'usuario' => 'Ana',
+                'email' => 'ana@gmail.com'
+            ]);
+
+            echo 'login'; 
+             
+        }
+
+        public function teste14_1(){
+            if(session()->has('usuario')){
+                echo 'Esse usuário já está logado';
+            } else {
+                echo 'Esse usuário não possui login';
+            }
+        }
+
+        public function teste14_2(){
+            session()->destroy();
+
+            return redirect()->to(site_url('public/main'));
+        }
+
 }
