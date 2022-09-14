@@ -37,7 +37,7 @@ class Main extends Controller
         echo 'teste'; 
     }
 
-        // metodos 
+        // Metodos e Helper 
 
     public function teste2(){
         echo adicionar(10, 30);
@@ -127,6 +127,26 @@ class Main extends Controller
 
         echo $p->render('pagina6'); 
 
+    }
+
+    public function teste9(){
+        $p = \Config\Services::parser();
+        $p->setData([
+                'titulo' => 'Listando mais facilmente o foreach',
+                'nomes' => [
+                    ['nome' => 'joão Paulo'],
+                    ['nome' => 'Carlos Alberto'],
+                    ['nome' => 'Ana Lúcia']
+
+                ],
+                'email' => [
+                    ['e-mail' => 'samuelsantos@gmail.com']
+                ],
+
+                'admin' => true
+            ]);
+
+            echo $p->render ('pagina7');
     }
 
 }
