@@ -129,6 +129,8 @@ class Main extends Controller
 
     }
 
+        // Listando com maior facilidade
+
     public function teste9(){
         $p = \Config\Services::parser();
         $p->setData([
@@ -148,5 +150,33 @@ class Main extends Controller
 
             echo $p->render ('pagina7');
     }
+
+            // Matriz e Tabela
+
+    public function teste10(){
+        $tabela = new \CodeIgniter\View\Table();
+
+        $template = [
+            'table_open' => '<table class="table table-striped">',
+            'thead_open' => '<thead class="thead-dark">',
+        ];
+
+        $tabela->setTemplate($template); 
+
+        $data = [
+            ['Name', 'Color', 'Size'],
+            ['Fred', 'Red', 'Small'],
+            ['Mary', 'Blue', 'Large'],
+            ['Jhon', 'Freen', 'Medium'],
+        ];
+
+        echo view('pagina8', ['tabela' => $tabela -> generate($data)]);
+
+    }
+
+
+
+
+
 
 }
