@@ -174,6 +174,14 @@ class Main extends Controller
 
     }
 
+        // Acrescentando Assets
+
+    public function teste11(){
+
+        echo view('pagina9'); 
+
+    }
+
 
 
 
