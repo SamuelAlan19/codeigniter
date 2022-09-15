@@ -254,9 +254,93 @@ class Main extends Controller
         }
 
         public function teste14_2(){
-            session()->destroy();
+            session()->stop();
 
             return redirect()->to(site_url('public/main'));
         }
+
+        // DataBase no CodeIgniter
+
+        public function teste15(){
+            $db = \Config\Database::connect();
+
+            $resultados = $db->query("SELECT * FROM clientes")->getResultObject();  // Também pode ser getresultArray(); 
+
+            $db->close(); 
+
+            echo '<pre>';
+            print_r($resultados);
+        
+        }
+
+        // Manipulando dados de um banco de dados
+
+        public function teste16(){
+
+            $db = db_connect(); 
+            $dados = $db->query("SELECT * FROM clientes");
+            $db->close();
+
+            foreach($dados->getResult() as $row){
+                echo  '<p>'. $row->nome . '</p>'; 
+            }
+        
+        }
+
+        // Apresentar dados em um banco de dados
+
+        public function teste17($id, $nome){
+
+            $params = [
+               'id' => $id,
+                'nome'=> $nome
+            ];
+
+
+            $db = db_connect(); 
+            $dados = $db->query("SELECT * FROM clientes WHERE idclientes = :id: AND nome = :nome:", $params)->getResultObject(); 
+            $db->close(); 
+
+            echo '<pre>';
+            print_r($dados);
+
+        }
+
+        // Inserindo dados em um Banco de Dados 
+
+        public function teste18(){
+           
+            return view('formulario'); 
+
+        }
+
+        public function novoCliente(){
+            
+                $nome = $this->request->getPost('nome');
+                $email = $this->request->getPost('email');
+
+                $params = [
+                    'nome' => $nome,
+                    'email' => $email
+                ];
+
+                $db = db_connect();
+
+                $db->query("
+                    INSERT INTO clientes VALUES(
+                        0,
+                        :nome:,
+                        :email:
+                    )
+                ", $params);
+                
+                $db->close();
+
+                echo 'Cadastrado'; 
+
+        }
+
+
+        
 
 }
