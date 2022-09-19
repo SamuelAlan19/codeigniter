@@ -327,8 +327,7 @@ class Main extends Controller
                 $db = db_connect();
 
                 $db->query("
-                    INSERT INTO clientes VALUES(
-                        0,
+                    INSERT INTO clientes(nome, email) VALUES(
                         :nome:,
                         :email:
                     )
@@ -336,11 +335,86 @@ class Main extends Controller
                 
                 $db->close();
 
-                echo 'Cadastrado'; 
+                return  'formulario'; 
 
         }
 
 
+        // Todo List 
+
+
+        public function teste19(){
+
+            return view('LIST'); 
+
+        }
+
+        public function getLists(){
+
+            $db = db_connect();
+            $dados = $db->query("SELECT * FROM rotina")->getResultObject(); 
+            $db->close(); 
+
+            return $dados; 
+
+        }
+
+        public function TODOLIST(){
+
+            $diario = $this->request->getPost('diario');
+            $mensal = $this->request->getPost('mensal');
+            $anual = $this->request->getPost('anual');
+
+            $params = [
+                'diario' => $diario,
+                'mensal' => $mensal,
+                'anual' => $anual
+            ];
+
+            $db = db_connect(); 
+
+            $db->query("
+                INSERT INTO rotina(diario, mensal, anual) VALUES (
+                    :diario:,
+                    :mensal:,
+                    :anual:
+                )
+            ", $params);
+
+            $db->close(); 
+
+
+            $dados['teste'] = $this->getLists();
+            echo view('LIST', $dados);  
+
+        }
+
+        public function delete(){
         
+            
+            //$pdo = new PDO('mysql:host=localhost;dbname=samueldatabase','samuel','Sesc2002*');
+
+             if(isset($_GET['delete'])){
+                 $id = (int)$_GET['delete'];
+                 $pdo->exec("DELETE FROM rotina WHERE id=$id");
+             echo 'deletado com sucesso';            
+             }
+
+             $fetchrotina = $sql->fetchAll(); 
+             
+
+             foreach ($fetchrotina as $key => $value) {
+             echo '<a href="?delete='.$value['id'].'"></a>'.$value['diario'] . '|' .$value['mensal'] . '|' .$value['anual']; 
+             echo '<hr>';
+             
+
+            
+             }
+
+        }
+
+
+
+
 
 }
