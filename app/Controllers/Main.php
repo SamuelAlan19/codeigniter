@@ -335,7 +335,7 @@ class Main extends Controller
                 
                 $db->close();
 
-                return  'formulario'; 
+                return  view('formulario'); 
 
         }
 
@@ -361,6 +361,7 @@ class Main extends Controller
 
         public function TODOLIST(){
 
+            $id = $this->request->getPost('idrotina');
             $diario = $this->request->getPost('diario');
             $mensal = $this->request->getPost('mensal');
             $anual = $this->request->getPost('anual');
@@ -374,7 +375,40 @@ class Main extends Controller
             $db = db_connect(); 
 
             $db->query("
-                INSERT INTO rotina(diario, mensal, anual) VALUES (
+                INSERT INTO rotina( idrotina, diario, mensal, anual) VALUES (
+                    0,
+                    :diario:,
+                    :mensal:,   
+                    :anual:
+                )
+            ", $params);
+
+            $db->close(); 
+
+
+            $dados['testes'] = $this->getLists();
+            echo view('LIST', $dados);  
+
+        }
+
+        public function delete(){
+        
+            $diario = $this->request->getPost('diario');
+            $mensal = $this->request->getPost('mensal');
+            $anual = $this->request->getPost('anual');
+
+            $params = [
+                'id' => $_GET['id'], 
+                'diario' => $diario,
+                'mensal' => $mensal,
+                'anual' => $anual
+            ];
+
+            $db = db_connect(); 
+
+            $db->query("
+                DELETE FROM rotina(diario, mensal, anual) WHERE id=$id (
+                    :id:
                     :diario:,
                     :mensal:,
                     :anual:
@@ -384,37 +418,43 @@ class Main extends Controller
             $db->close(); 
 
 
-            $dados['teste'] = $this->getLists();
-            echo view('LIST', $dados);  
+            //$dados['dado'] = $this->getDelete();
+            //echo view('LIST', $dados);  
 
-        }
 
-        public function delete(){
-        
+            /*$pdo = new PDO('mysql:host=localhost;dbname=samueldatabase','samuel','Sesc2002*');
+
+            if(isset($_GET['delete'])){
+                $id = (int)$_GET['delete'];
+                $pdo->exec("DELETE FROM rotina WHERE id=$id");
+            echo 'deletado com sucesso';            
+            }
+
+            $fetchrotina = $sql->fetchAll(); 
             
-            //$pdo = new PDO('mysql:host=localhost;dbname=samueldatabase','samuel','Sesc2002*');
 
-             if(isset($_GET['delete'])){
-                 $id = (int)$_GET['delete'];
-                 $pdo->exec("DELETE FROM rotina WHERE id=$id");
-             echo 'deletado com sucesso';            
+            foreach ($fetchrotina as $key => $value) {
+            echo '<a href="?delete='.$value['id'].'"></a>'.$value['diario'] . '|' .$value['mensal'] . '|' .$value['anual']; 
+            echo '<hr>';*/
+
+                /*if(!empty($_GET['id']))
+                {
+                    include_once('config.php');
+                    $id = $_GET['id']; 
+
+                    $sqlSelect = $conexao->query($sqlSelect);
+
+                    if($result->num_rows > 0 )
+                    {
+                        $sqlDelete = "DELETE FROM rotina WHERE id=$id";
+                        $resultDelete = $conexao->query(sqlSelect);
+                    }
+                }*/
+
              }
 
-             $fetchrotina = $sql->fetchAll(); 
-             
-
-             foreach ($fetchrotina as $key => $value) {
-             echo '<a href="?delete='.$value['id'].'"></a>'.$value['diario'] . '|' .$value['mensal'] . '|' .$value['anual']; 
-             echo '<hr>';
-             
-
-            
+             public function teste20(){
+                    return view('CONFIG'); 
              }
-
-        }
-
-
-
-
 
 }

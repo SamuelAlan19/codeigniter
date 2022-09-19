@@ -32,29 +32,26 @@
             <table class= "table table-striped">
                 <thead class= "thead-dark">
                     <tr class = "text-center">
-                        <th>Tarefas Diárias <input type="checkbox"></th>
+                    <th>ID</th>        
+                        <th>Tarefas Diárias</th>
                         <th>Tarefas Mensais</th>
-                        <th>Tarefas Anuais</th>
-                        <th></th>
+                        <th>Tarefas Anuais</th> 
+                        <th></th>           
                     </tr>
+                    
                 </thead>
                 <tbody class = "text-center" >
-                        <?php foreach ($teste as $testes): ?>
+
+                        <?php foreach ($testes as $teste): ?>
                             <tr>
-                                <td><input type="hidden"><?= $testes->diario?> &nbsp; <input type="checkbox"> </td>
-                                <td><?= $testes->mensal?> &nbsp; <input type="checkbox"></td>
-                                <td><?= $testes->anual?> &nbsp; <input type="checkbox"></td>
-                                <td><input type="submit" value="Deletar"> <input type="submit" value="Atualizar"></td>
+                                <td><?php ?></td>
+                                <td><?= $teste->diario?> &nbsp; <input type="checkbox"> </td>
+                                <td><?= $teste->mensal?> &nbsp; <input type="checkbox"></td>
+                                <td><?= $teste->anual?> &nbsp; <input type="checkbox"></td>
+                                <td><a class='btn' href="delete.php?codigo=$_GET['id']">Deletar</a><input type="submit" value="Atualizar"></td>
                             </tr>
                         <?php endforeach; ?> 
-
-                    
-                           
-
-
             </table>
-            
-   
                 <?php echo form_close();?>
                 
                 
