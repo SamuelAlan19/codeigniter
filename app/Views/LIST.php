@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+
+
 </head>
 <body>
 
@@ -18,39 +22,44 @@
                
                 <?php 
                 helper('form'); 
-                echo form_open('public/main/TODOLIST')
+                echo form_open('public/main/insert') 
                 ?>
+                   
+                
 
-            <div class="col text-center">
-                <input type="text" name="diario" placeholder = "diário">               
-                <input type="text" name="mensal" placeholder = "mensal">
-                <input type="text" name="anual" placeholder = "anual">
+           <div class="col text-center">
+                <input type="text" name="diario" placeholder = "diário" class= "text-center">               
+                <input type="text" name="mensal" placeholder = "mensal" class= "text-center">
+                <input type="text" name="anual" placeholder = "anual" class= "text-center">
                 <input type="submit" value="Adicionar">
                 <hr>
             </div>
 
             <table class= "table table-striped">
                 <thead class= "thead-dark">
-                    <tr class = "text-center">
-                    <th>ID</th>        
+                    <tr class = "text-center"> 
+                        <th>ID</th>       
                         <th>Tarefas Diárias</th>
                         <th>Tarefas Mensais</th>
                         <th>Tarefas Anuais</th> 
-                        <th></th>           
+                        <th></th>
+                        <th>Funções</th>        
                     </tr>
                     
                 </thead>
-                <tbody class = "text-center" >
-
-                        <?php foreach ($testes as $teste): ?>
-                            <tr>
-                                <td><?php ?></td>
-                                <td><?= $teste->diario?> &nbsp; <input type="checkbox"> </td>
-                                <td><?= $teste->mensal?> &nbsp; <input type="checkbox"></td>
-                                <td><?= $teste->anual?> &nbsp; <input type="checkbox"></td>
-                                <td><a class='btn' href="delete.php?codigo=$_GET['id']">Deletar</a><input type="submit" value="Atualizar"></td>
-                            </tr>
-                        <?php endforeach; ?> 
+                <tbody class = "text-center" > 
+                    <?php foreach ($testes as $teste): ?>
+                        <tr>
+                            <td><?= $teste->idrotina?></td>
+                            <td><?= $teste->diario?> &nbsp; </td>
+                            <td><?= $teste->mensal?> &nbsp; </td>
+                            <td><?= $teste->anual?> &nbsp; </td>
+                            <th></th> 
+                            <td><a href="<?php echo site_url('public/main/delete/' . $teste->idrotina);?>" class= "btn btn-danger"> Deletar</a>  
+                            <a href="<?php echo site_url('public/main/update/' . $teste->idrotina);?>" class= "btn btn-primary"> Atualizar</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
                 <?php echo form_close();?>
                 

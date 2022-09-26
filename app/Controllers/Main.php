@@ -340,14 +340,7 @@ class Main extends Controller
         }
 
 
-        // Todo List 
-
-
-        public function teste19(){
-
-            return view('LIST'); 
-
-        }
+        // TODO LIST 
 
         public function getLists(){
 
@@ -361,7 +354,13 @@ class Main extends Controller
 
         public function TODOLIST(){
 
-            $id = $this->request->getPost('idrotina');
+            $dados['testes'] = $this->getLists();
+            return view('LIST', $dados);
+
+        }
+
+        public function insert(){
+
             $diario = $this->request->getPost('diario');
             $mensal = $this->request->getPost('mensal');
             $anual = $this->request->getPost('anual');
@@ -375,8 +374,7 @@ class Main extends Controller
             $db = db_connect(); 
 
             $db->query("
-                INSERT INTO rotina( idrotina, diario, mensal, anual) VALUES (
-                    0,
+                INSERT INTO rotina( diario, mensal, anual) VALUES (
                     :diario:,
                     :mensal:,   
                     :anual:
@@ -385,76 +383,106 @@ class Main extends Controller
 
             $db->close(); 
 
-
             $dados['testes'] = $this->getLists();
-            echo view('LIST', $dados);  
+            return redirect()->to(site_url('public/main/TODOLIST'));
 
         }
 
-        public function delete(){
-        
-            $diario = $this->request->getPost('diario');
-            $mensal = $this->request->getPost('mensal');
-            $anual = $this->request->getPost('anual');
+        public function delete($idrotina = -1){
 
             $params = [
-                'id' => $_GET['id'], 
-                'diario' => $diario,
-                'mensal' => $mensal,
-                'anual' => $anual
+                'idrotina' => $idrotina
             ];
 
             $db = db_connect(); 
-
-            $db->query("
-                DELETE FROM rotina(diario, mensal, anual) WHERE id=$id (
-                    :id:
-                    :diario:,
-                    :mensal:,
-                    :anual:
-                )
-            ", $params);
-
+            $db->query("DELETE FROM rotina WHERE idrotina = :idrotina:", $params);
             $db->close(); 
+ 
+            return redirect()->to(site_url('public/main/TODOLIST'));
 
-
-            //$dados['dado'] = $this->getDelete();
-            //echo view('LIST', $dados);  
-
-
-            /*$pdo = new PDO('mysql:host=localhost;dbname=samueldatabase','samuel','Sesc2002*');
-
-            if(isset($_GET['delete'])){
-                $id = (int)$_GET['delete'];
-                $pdo->exec("DELETE FROM rotina WHERE id=$id");
-            echo 'deletado com sucesso';            
             }
 
-            $fetchrotina = $sql->fetchAll(); 
+            public function update($idrotina = -1){
+   
+
+                $params = [
+                    'idrotina' => $idrotina
+                ];
+
+                $db = db_connect(); 
+                $dados = $db->query("SELECT * FROM rotina WHERE idrotina = :idrotina:",$params)->getResultObject(); 
+                $db->close(); 
+                
+                $dados['testar'] = $dados[0];
+                return view('ATUALIZAR',$dados);
+            } 
+
+            public function update02(){
+
+                $params = [
+                    'idrotina' => $this->request->getPost('idrotina'), 
+                    'diario' => $this->request->getPost('diario'),
+                    'mensal' => $this->request->getPost('mensal'),
+                    'anual' => $this->request->getPost('anual')
+                ];
+
+                $db = db_connect(); 
+                $db->query("UPDATE rotina SET diario = :diario:, mensal = :mensal:, anual = :anual: WHERE idrotina = :idrotina:",$params);
+                $db->close(); 
+                return redirect()->to(site_url('public/main/TODOLIST')); 
+            }
+
+            // TRABALHANDO COM VALIDAÇÃO
+
+                public function teste19(){
+                   
+                $data = [];     
+                if(session()->has('erro')) {
+                    $data['erro'] = session('erro');
+                }   
+                return view('pagina10', $data);
+                }
+                
+                public function submeter(){
+                    if($this->request->getMethod() != 'post'){
+                        return redirect()->to(site_url('public/main/teste19'));
+                    }
+
+                    $validacao = $this->validate([
+                        'nome' => 'required|alpha_space',
+                        'apelido' => 'required'
+                    ],[
+                        'nome' => [
+                            'required' => 'Nome é um campo de preenchimento obrigatório',
+                            'alpha_space' => 'Só pode conter letras e espaços'
+                        ],                                                
+                            'apelido' => [
+                                'required' => 'Apelido é um campo de preenchimento obrigatório', 
+                            ]         
+                ]);
+
+                    if(!$validacao){
+                        return redirect()->to(site_url('public/main/teste19'))->withInput()->with('erro', $this->validator);
+                    } else {
+                        echo 'Formulário preenchido com sucesso';
+                    }
+
+                }
+
+                public function teste20(){
+                    $db = db_connect();
+                    $dados = $db->query("SELECT * FROM lojas");
+                    $db->close();
+
+                    $lojas = $dados->getCustomResultObject('lojas')[0]; 
+
+                    echo $lojas->nome;
+                }
             
 
-            foreach ($fetchrotina as $key => $value) {
-            echo '<a href="?delete='.$value['id'].'"></a>'.$value['diario'] . '|' .$value['mensal'] . '|' .$value['anual']; 
-            echo '<hr>';*/
 
-                /*if(!empty($_GET['id']))
-                {
-                    include_once('config.php');
-                    $id = $_GET['id']; 
 
-                    $sqlSelect = $conexao->query($sqlSelect);
 
-                    if($result->num_rows > 0 )
-                    {
-                        $sqlDelete = "DELETE FROM rotina WHERE id=$id";
-                        $resultDelete = $conexao->query(sqlSelect);
-                    }
-                }*/
 
-             }
-
-             public function teste20(){
-                    return view('CONFIG'); 
-             }
 
 }
