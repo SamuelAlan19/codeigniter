@@ -8,9 +8,9 @@ use CodeIgniter\Controller;
 
 use App\Libraries\Biblioteca\Livros;
 
-use App\Libraries\Biblioteca\lojas;
+use App\Libraries\Biblioteca\Lojas;
 
-use classes\model\Inserent;
+use Classes\Model\Inserent;
 
 
 
@@ -498,7 +498,7 @@ class Main extends Controller
 
         $dados = $tabela->get(); 
 
-        foreach($dados->getResult('lojas') as $lojas){
+        foreach($dados->getResult('Lojas') as $lojas){
             echo $lojas->nome  . '</br>'; 
         }
 

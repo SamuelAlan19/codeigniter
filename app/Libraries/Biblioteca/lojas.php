@@ -1,9 +1,9 @@
 <?php
-namespace classes\mapper;
-use classes\model\Inserent;
-use CodeIgniter\Controller;
+namespace App\Libraries\Biblioteca;
+// use Classes\Model\Inserent;
+// use CodeIgniter\Controller;
 
-Class lojas{
+Class Lojas{
     public $nome_completo;
     public $nome;
     public $apelido;
