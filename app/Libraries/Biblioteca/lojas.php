@@ -1,9 +1,7 @@
 <?php
-namespace App\Libraries\Biblioteca;
-// use Classes\Model\Inserent;
-// use CodeIgniter\Controller;
+Namespace App\Libraries\Biblioteca; 
 
-Class Lojas{
+    Class Lojas{
     public $nome_completo;
     public $nome;
     public $apelido;

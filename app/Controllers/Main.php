@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\HTTP\Request;
+//use CodeIgniter\HTTP\Request;
 
 use CodeIgniter\Controller;
 
@@ -10,7 +10,9 @@ use App\Libraries\Biblioteca\Livros;
 
 use App\Libraries\Biblioteca\Lojas;
 
-use Classes\Model\Inserent;
+use App\Libraries\Biblioteca\Clientes;
+
+use App\Models\Teste;
 
 
 
@@ -474,7 +476,7 @@ class Main extends Controller
         $validacao = $this->validate([
             'nome' => 'required|alpha_space',
             'apelido' => 'required'
-        ], [
+        ],[
             'nome' => [
                 'required' => 'Nome é um campo de preenchimento obrigatório',
                 'alpha_space' => 'Só pode conter letras e espaços'
@@ -491,19 +493,88 @@ class Main extends Controller
         }
     }
 
-    public function teste20()
-    {
-        $db = db_connect(); 
-        $tabela = $db->table('lojas'); 
+   // public function teste20()
+   // {
+       // $db = db_connect(); 
+       // $tabela = $db->table('lojas'); 
 
-        $dados = $tabela->get(); 
+       // $dados = $tabela->get(); 
 
-        foreach($dados->getResult('Lojas') as $lojas){
-            echo $lojas->nome  . '</br>'; 
-        }
+      //  foreach($dados->getResult('Lojas') as $lojas){
+      //      echo $lojas->nome  . '</br>'; 
+      //  }
 
-        $db->close(); 
+      //  $db->close(); 
 
+   // }
+
+   public function teste20()
+
+   {
+       $db = db_connect();
+
+       $Lojas = new Lojas(); 
+       $tabela = $db->query('select * from lojas');
+
+
+
+       $dados = $tabela->getCustomResultObject('Lojas');
+echo '<pre>';
+var_dump($dados);exit();
+
+       foreach($dados as $lojas){
+
+           echo $lojas->nome  . '</br>';
+
+       }
+
+       $db->close();
+   }
+
+   // TRABALHANDO COM MODELAGEM DE DADOS 
+
+   public function teste21(){
+
+    $db = db_connect(); 
+
+    echo '<pre>';
+    $tabelas = $db->listTables();    
+    print_r($tabelas);
+     
+
+    $colunas = $db->getFieldNames('rotina'); 
+    echo '<pre>';
+    print_r($colunas); 
+
+
+
+    $db->close(); 
+
+   }
+
+   public function teste22(){
+
+    $Clientes = new Clientes(); 
+
+    $resultados = $Clientes->todosClientes(); 
+
+    echo '<pre>'; 
+    print_r($resultados); 
+   }
+
+    // TRABALHANDO COM MODELS
+
+    public function teste23(){
+
+        $teste = new Teste(); 
+
+        $dados = $teste->where('idclientes <=', 9)->findAll(); 
+
+        echo '<pre>';
+        print_r($dados);
+         
 
     }
+
+
 }

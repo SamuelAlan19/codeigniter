@@ -1,10 +1,10 @@
 <?php helper('form')?> 
 <?= form_open('public/main/submeter') ?>
 <div>
-    <input type="text" name="nome" value="<?= old('nome') ?>">
+    <a><input type="text" name="nome" value="<?= old('nome') ?>"> Nome </a>
 </div>
 <div>
-    <input type="text" name="apelido" value= "<?= old('apelido') ?>">
+    <a><input type="text" name="apelido" value= "<?= old('apelido') ?>"> Apelido </a>
 </div>
 <div>
     <input type="submit" value="Guardar">
